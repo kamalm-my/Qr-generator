@@ -125,7 +125,7 @@
                 text: text,
                 width: 200,
                 height: 200,
-                colorDark: '#800000',
+                colorDark: '#000000',
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
             });
@@ -162,8 +162,16 @@
         downloadBtn.addEventListener('click', function() {
             var canvas = container.querySelector('canvas');
             if (!canvas) return;
+            var border = 30;
+            var finalCanvas = document.createElement('canvas');
+            finalCanvas.width  = canvas.width  + border * 2;
+            finalCanvas.height = canvas.height + border * 2;
+            var ctx = finalCanvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+            ctx.drawImage(canvas, border, border);
             var a = document.createElement('a');
-            a.href = canvas.toDataURL('image/png');
+            a.href = finalCanvas.toDataURL('image/png');
             a.download = 'QR_Kod_Kamalm_V1.0.png';
             document.body.appendChild(a);
             a.click();
